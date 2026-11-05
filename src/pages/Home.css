@@ -771,3 +771,67 @@
     transition: none;
   }
 }
+
+/* =========================================
+   HOME — ANIMATION LAYOUT SUPPORT
+========================================= */
+
+/* Allow animated grid children to size correctly */
+
+.home-services-container > div,
+.home-project-grid > div,
+.home-stats-container > div,
+.home-approach-grid > div,
+.home-about-highlights > div {
+  min-width: 0;
+  height: 100%;
+}
+
+/* Keep project card filling its grid column */
+
+.home-project-grid > div .home-project-card {
+  display: block;
+  height: 100%;
+}
+
+/* Preserve service layout */
+
+.home-services-container > div .home-service {
+  height: 100%;
+}
+
+/* Preserve approach layout */
+
+.home-approach-grid > div .home-approach-item,
+.home-approach-grid > div .home-approach-heading {
+  height: 100%;
+}
+
+/* Maintain stat alignment */
+
+.home-stats-container > div .home-stat {
+  height: 100%;
+}
+
+/* Cinematic image reveal */
+
+.home-about-image .tm-image-reveal {
+  width: 100%;
+  height: 100%;
+}
+
+.home-about-image .tm-image-reveal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive project cards */
+
+@media (max-width: 650px) {
+  .home-project-grid > div,
+  .home-services-container > div,
+  .home-approach-grid > div {
+    width: 100%;
+  }
+}

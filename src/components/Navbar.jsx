@@ -19,19 +19,16 @@ const navLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
-const transparentPages = ["/", "/contact"];
-
 function Navbar() {
   const location = useLocation();
-
-  const hasTransparentNavbar = transparentPages.includes(
-    location.pathname
-  );
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Detect scroll position
+  /* =====================================
+     TRACK SCROLL
+  ===================================== */
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -48,135 +45,66 @@ function Navbar() {
     };
   }, []);
 
-  // Close menu when navigating between pages
+  /* =====================================
+     RESET ON ROUTE CHANGE
+  ===================================== */
+
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  /* =====================================
+     TRANSPARENT NAVBAR ON ALL PAGES
+  ===================================== */
 
-  const isOverlay =
-    hasTransparentNavbar && !scrolled && !menuOpen;
+  const isTransparent = !scrolled && !menuOpen;
 
   return (
-    <>
-      {/* Spacer only for pages with solid navbar */}
-      {!hasTransparentNavbar && (
-        <div className="tm-nav-spacer" />
-      )}
+    <header
+      className={[
+        "tm-navbar",
+        isTransparent ? "tm-navbar-transparent" : "",
+        scrolled ? "tm-navbar-scrolled" : "",
+        menuOpen ? "tm-navbar-menu-open" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div className="tm-nav-container">
 
-      <header
-        className={[
-          "tm-navbar",
-          hasTransparentNavbar
-            ? "tm-navbar-home"
-            : "tm-navbar-inner",
-          isOverlay ? "tm-navbar-transparent" : "",
-          scrolled ? "tm-navbar-scrolled" : "",
-          menuOpen ? "tm-navbar-menu-open" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        <div className="tm-nav-container">
+        {/* BRAND */}
 
-          {/* BRAND */}
-          <Link
-            to="/"
-            className="tm-brand"
-            onClick={closeMenu}
-            aria-label="Tropical Manifesto Home"
-          >
-            <img
-              src={logo}
-              alt=""
-              className="tm-logo"
-            />
+        <Link
+          to="/"
+          className="tm-brand"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Tropical Manifesto Home"
+        >
+          <img
+            src={logo}
+            alt=""
+            className="tm-logo"
+          />
 
-            <span className="tm-brand-name">
-              <span>Tropical</span>
-              <span>Manifesto</span>
-            </span>
-          </Link>
+          <span className="tm-brand-name">
+            <span>Tropical</span>
+            <span>Manifesto</span>
+          </span>
+        </Link>
 
-          {/* DESKTOP NAVIGATION */}
-          <nav
-            className="tm-nav-links"
-            aria-label="Main navigation"
-          >
-            {navLinks.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === "/"}
-                className={({ isActive }) =>
-                  `tm-nav-link ${
-                    isActive ? "active" : ""
-                  }`
-                }
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </nav>
+        {/* DESKTOP NAVIGATION */}
 
-          {/* RIGHT ACTIONS */}
-          <div className="tm-nav-actions">
-
-            <Link
-              to="/contact"
-              className="tm-start-btn"
-              onClick={closeMenu}
-            >
-              <span>Start a Project</span>
-              <ArrowRight
-                size={18}
-                strokeWidth={1.8}
-              />
-            </Link>
-
-            {/* MOBILE MENU BUTTON */}
-            <button
-              type="button"
-              className="tm-menu-toggle"
-              aria-label={
-                menuOpen ? "Close menu" : "Open menu"
-              }
-              aria-expanded={menuOpen}
-              aria-controls="tm-mobile-navigation"
-              onClick={() =>
-                setMenuOpen((prev) => !prev)
-              }
-            >
-              {menuOpen ? (
-                <X size={25} strokeWidth={1.8} />
-              ) : (
-                <Menu size={25} strokeWidth={1.8} />
-              )}
-            </button>
-
-          </div>
-        </div>
-
-        {/* MOBILE NAVIGATION */}
         <nav
-          id="tm-mobile-navigation"
-          className={`tm-mobile-menu ${
-            menuOpen ? "open" : ""
-          }`}
-          aria-label="Mobile navigation"
-          inert={!menuOpen}
+          className="tm-nav-links"
+          aria-label="Main navigation"
         >
           {navLinks.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               end={item.path === "/"}
-              onClick={closeMenu}
               className={({ isActive }) =>
-                `tm-mobile-link ${
+                `tm-nav-link ${
                   isActive ? "active" : ""
                 }`
               }
@@ -184,18 +112,80 @@ function Navbar() {
               {item.name}
             </NavLink>
           ))}
+        </nav>
+
+        {/* ACTIONS */}
+
+        <div className="tm-nav-actions">
 
           <Link
             to="/contact"
-            className="tm-mobile-cta"
-            onClick={closeMenu}
+            className="tm-start-btn"
+            onClick={() => setMenuOpen(false)}
           >
-            Start a Project
-            <ArrowRight size={18} />
+            <span>Start a Project</span>
+            <ArrowRight size={18} strokeWidth={1.8} />
           </Link>
-        </nav>
-      </header>
-    </>
+
+          <button
+            type="button"
+            className="tm-menu-toggle"
+            aria-label={
+              menuOpen ? "Close menu" : "Open menu"
+            }
+            aria-expanded={menuOpen}
+            aria-controls="tm-mobile-navigation"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <X size={25} strokeWidth={1.8} />
+            ) : (
+              <Menu size={25} strokeWidth={1.8} />
+            )}
+          </button>
+
+        </div>
+
+      </div>
+
+      {/* MOBILE NAVIGATION */}
+
+      <nav
+        id="tm-mobile-navigation"
+        className={`tm-mobile-menu ${
+          menuOpen ? "open" : ""
+        }`}
+        aria-label="Mobile navigation"
+        inert={!menuOpen}
+      >
+        {navLinks.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.path === "/"}
+            className={({ isActive }) =>
+              `tm-mobile-link ${
+                isActive ? "active" : ""
+              }`
+            }
+            onClick={() => setMenuOpen(false)}
+          >
+            {item.name}
+          </NavLink>
+        ))}
+
+        <Link
+          to="/contact"
+          className="tm-mobile-cta"
+          onClick={() => setMenuOpen(false)}
+        >
+          Start a Project
+          <ArrowRight size={18} />
+        </Link>
+
+      </nav>
+
+    </header>
   );
 }
 

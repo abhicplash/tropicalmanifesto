@@ -1,5 +1,5 @@
-
 import { Link } from "react-router-dom";
+
 import {
   ArrowRight,
   Building2,
@@ -12,7 +12,21 @@ import {
   Box,
 } from "lucide-react";
 
+/* =========================================
+   ANIMATION COMPONENTS
+========================================= */
+
+import Reveal from "../components/animations/Reveal";
+
+import { Stagger, StaggerItem } from "../components/animations/Stagger";
+
+import ImageReveal from "../components/animations/ImageReveal";
+
 import "./Home.css";
+
+/* =========================================
+   SERVICES DATA
+========================================= */
 
 const services = [
   {
@@ -37,23 +51,27 @@ const services = [
   },
 ];
 
+/* =========================================
+   FEATURED PROJECTS
+========================================= */
+
 const projects = [
   {
-    id: 1,
+    id: "summer-house",
     title: "SUMMER HOUSE",
     category: "Wayanad",
     location: "Kerala",
     image: "/images/project-01.jpg",
   },
   {
-    id: 2,
+    id: "erc",
     title: "ERC",
     category: "COLVALE",
     location: "GOA",
     image: "/images/project-02.jpg",
   },
   {
-    id: 3,
+    id: "koru",
     title: "KORU",
     category: "VIRAJPET",
     location: "KARNATAKA",
@@ -61,12 +79,32 @@ const projects = [
   },
 ];
 
+/* =========================================
+   STATISTICS DATA
+========================================= */
+
 const stats = [
-  { number: "200+", label: "Projects Completed" },
-  { number: "15+", label: "Years of Practice" },
-  { number: "12", label: "Awards & Recognitions" },
-  { number: "100%", label: "Client Satisfaction" },
+  {
+    number: "200+",
+    label: "Projects Completed",
+  },
+  {
+    number: "15+",
+    label: "Years of Practice",
+  },
+  {
+    number: "12",
+    label: "Awards & Recognitions",
+  },
+  {
+    number: "100%",
+    label: "Client Satisfaction",
+  },
 ];
+
+/* =========================================
+   DESIGN APPROACH
+========================================= */
 
 const approaches = [
   {
@@ -91,51 +129,74 @@ const approaches = [
   },
 ];
 
+/* =========================================
+   HOME PAGE
+========================================= */
+
 function Home() {
   return (
     <main className="home-page">
+      {/* =====================================
+          HERO SECTION
+      ===================================== */}
 
-      {/* ================= HERO ================= */}
       <section className="home-hero">
         <div className="home-hero-bg" />
 
         <div className="home-hero-content">
-          <p className="home-eyebrow">
-            Architecture
-            <span>/</span>
-            Interiors
-            <span>/</span>
-            Landscapes
-          </p>
+          {/* EYEBROW */}
 
-          <h1>
-            Spaces
-            <br />
-            Rooted in
-            <br />
-            the Tropics
-          </h1>
+          <Reveal delay={0.05} duration={0.65}>
+            <p className="home-eyebrow">
+              Architecture
+              <span>/</span>
+              Interiors
+              <span>/</span>
+              Landscapes
+            </p>
+          </Reveal>
 
-          <p className="home-hero-description">
-            We design timeless, climate-responsive
-            spaces that harmonize architecture,
-            nature and people.
-          </p>
+          {/* HERO TITLE */}
 
-          <div className="home-hero-actions">
-            <Link to="/projects" className="home-yellow-btn">
-              Explore Our Projects
-              <ArrowRight size={18} />
-            </Link>
+          <Reveal delay={0.15} duration={0.9}>
+            <h1>
+              Spaces
+              <br />
+              Rooted in
+              <br />
+              the Tropics
+            </h1>
+          </Reveal>
 
-            <a href="#our-approach" className="home-text-btn">
-              <span className="home-play-icon">
-                <ArrowRight size={17} />
-              </span>
-              Our Approach
-            </a>
-          </div>
+          {/* DESCRIPTION */}
+
+          <Reveal delay={0.32} duration={0.8}>
+            <p className="home-hero-description">
+              We design timeless, climate-responsive spaces that harmonize
+              architecture, nature and people.
+            </p>
+          </Reveal>
+
+          {/* HERO BUTTONS */}
+
+          <Reveal delay={0.48} duration={0.8}>
+            <div className="home-hero-actions">
+              <Link to="/projects" className="home-yellow-btn">
+                Explore Our Projects
+                <ArrowRight size={18} />
+              </Link>
+
+              <a href="#our-approach" className="home-text-btn">
+                <span className="home-play-icon">
+                  <ArrowRight size={17} />
+                </span>
+                Our Approach
+              </a>
+            </div>
+          </Reveal>
         </div>
+
+        {/* HERO INDICATOR */}
 
         <div className="home-hero-indicator">
           <span className="home-indicator-line" />
@@ -143,216 +204,268 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= SERVICES ================= */}
+      {/* =====================================
+          SERVICES SECTION
+      ===================================== */}
+
       <section className="home-services" id="services">
-        <div className="home-services-container">
+        <Stagger className="home-services-container">
           {services.map((service) => {
             const Icon = service.icon;
 
             return (
-              <div className="home-service" key={service.title}>
-                <Icon
-                  size={35}
-                  strokeWidth={1.35}
-                  className="home-service-icon"
-                />
+              <StaggerItem key={service.title}>
+                <div className="home-service">
+                  <Icon
+                    size={35}
+                    strokeWidth={1.35}
+                    className="home-service-icon"
+                  />
 
-                <div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
+                  <div>
+                    <h3>{service.title}</h3>
+
+                    <p>{service.description}</p>
+                  </div>
                 </div>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </section>
 
-      {/* ================= ABOUT ================= */}
+      {/* =====================================
+          ABOUT SECTION
+      ===================================== */}
+
       <section className="home-about">
+        {/* ARCHITECTURAL IMAGE */}
+
         <div className="home-about-image">
-          <img
+          <ImageReveal
             src="/images/home-about.jpg"
             alt="Modern tropical architecture with natural materials"
-            loading="lazy"
           />
         </div>
 
+        {/* ABOUT CONTENT */}
+
         <div className="home-about-content">
           <div className="home-about-text">
-            <p className="home-section-label">
-              About Tropical Manifesto
-            </p>
+            <Reveal delay={0.05}>
+              <p className="home-section-label">About Tropical Manifesto</p>
+            </Reveal>
 
-            <h2>
-              A Design Studio
-              <br />
-              Shaped by Place
-            </h2>
+            <Reveal delay={0.12} duration={0.85}>
+              <h2>
+                A Design Studio
+                <br />
+                Shaped by Place
+              </h2>
+            </Reveal>
 
-            <p className="home-section-description">
-              Tropical Manifesto is an architecture and design
-              studio that creates contextual, sustainable and
-              human-centric spaces across residential,
-              commercial and hospitality sectors.
-            </p>
+            <Reveal delay={0.2}>
+              <p className="home-section-description">
+                Tropical Manifesto is an architecture and design studio that
+                creates contextual, sustainable and human-centric spaces across
+                residential, commercial and hospitality sectors.
+              </p>
+            </Reveal>
 
-            <Link to="/about" className="home-yellow-btn home-small-btn">
-              Know More
-              <ArrowRight size={17} />
-            </Link>
+            <Reveal delay={0.3}>
+              <Link to="/about" className="home-yellow-btn home-small-btn">
+                Know More
+                <ArrowRight size={17} />
+              </Link>
+            </Reveal>
           </div>
 
-          <div className="home-about-highlights">
-            <div>
-              <strong>Nature</strong>
-              <span>Our Inspiration</span>
-            </div>
-            <div>
-              <strong>People</strong>
-              <span>Our Purpose</span>
-            </div>
-            <div>
-              <strong>Place</strong>
-              <span>Our Foundation</span>
-            </div>
-          </div>
+          {/* ABOUT HIGHLIGHTS */}
+
+          <Stagger className="home-about-highlights" delay={0.15}>
+            <StaggerItem>
+              <div>
+                <strong>Nature</strong>
+                <span>Our Inspiration</span>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div>
+                <strong>People</strong>
+                <span>Our Purpose</span>
+              </div>
+            </StaggerItem>
+
+            <StaggerItem>
+              <div>
+                <strong>Place</strong>
+                <span>Our Foundation</span>
+              </div>
+            </StaggerItem>
+          </Stagger>
         </div>
       </section>
 
-      {/* ================= PROJECTS ================= */}
+      {/* =====================================
+          FEATURED PROJECTS
+      ===================================== */}
+
       <section className="home-projects">
         <div className="home-section-container">
+          {/* SECTION HEADING */}
 
           <div className="home-section-heading">
-            <div>
-              <p className="home-section-label">
-                Featured Projects
-              </p>
+            <Reveal direction="up">
+              <div>
+                <p className="home-section-label">Featured Projects</p>
 
-              <h2>
-                A Curated Selection
-                <br />
-                of Our Work
-              </h2>
-            </div>
+                <h2>
+                  A Curated Selection
+                  <br />
+                  of Our Work
+                </h2>
+              </div>
+            </Reveal>
 
-            <Link to="/projects" className="home-outline-btn">
-              View All Projects
-              <ArrowRight size={17} />
-            </Link>
+            <Reveal direction="up" delay={0.2}>
+              <Link to="/projects" className="home-outline-btn">
+                View All Projects
+                <ArrowRight size={17} />
+              </Link>
+            </Reveal>
           </div>
 
-          <div className="home-project-grid">
-            {projects.map((project) => (
-              <Link
-                to="/projects"
-                className="home-project-card"
-                key={project.id}
-              >
-                <div className="home-project-image">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                  />
-                </div>
+          {/* PROJECT GRID */}
 
-                <div className="home-project-info">
-                  <div>
-                    <h3>{project.title}</h3>
-                    <p>
-                      {project.category}
-                      <span>/</span>
-                      {project.location}
-                    </p>
+          <Stagger className="home-project-grid">
+            {projects.map((project) => (
+              <StaggerItem key={project.id}>
+                <Link
+                  to={`/projects/${project.id}`}
+                  className="home-project-card"
+                >
+                  <div className="home-project-image">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                    />
                   </div>
 
-                  <span className="home-project-arrow">
-                    <ArrowRight size={18} />
-                  </span>
-                </div>
-              </Link>
+                  <div className="home-project-info">
+                    <div>
+                      <h3>{project.title}</h3>
+
+                      <p>
+                        {project.category}
+                        <span>/</span>
+                        {project.location}
+                      </p>
+                    </div>
+
+                    <span className="home-project-arrow">
+                      <ArrowRight size={18} />
+                    </span>
+                  </div>
+                </Link>
+              </StaggerItem>
             ))}
-          </div>
-
+          </Stagger>
         </div>
       </section>
 
-      {/* ================= STATISTICS ================= */}
+      {/* =====================================
+          STATISTICS SECTION
+      ===================================== */}
+
       <section className="home-stats">
-        <div className="home-stats-container">
+        <Stagger className="home-stats-container">
           {stats.map((stat) => (
-            <div className="home-stat" key={stat.label}>
-              <strong>{stat.number}</strong>
-              <span>{stat.label}</span>
-            </div>
+            <StaggerItem key={stat.label}>
+              <div className="home-stat">
+                <strong>{stat.number}</strong>
+                <span>{stat.label}</span>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
 
-      {/* ================= APPROACH ================= */}
+      {/* =====================================
+          OUR APPROACH
+      ===================================== */}
+
       <section className="home-approach" id="our-approach">
         <div className="home-section-container">
+          <Stagger className="home-approach-grid">
+            {/* APPROACH HEADING */}
 
-          <div className="home-approach-grid">
-            <div className="home-approach-heading">
-              <p className="home-section-label">
-                Our Approach
-              </p>
+            <StaggerItem>
+              <div className="home-approach-heading">
+                <p className="home-section-label">Our Approach</p>
 
-              <h2>
-                Designing
-                <br />
-                with Purpose
-              </h2>
-            </div>
+                <h2>
+                  Designing
+                  <br />
+                  with Purpose
+                </h2>
+              </div>
+            </StaggerItem>
+
+            {/* APPROACH ITEMS */}
 
             {approaches.map((item) => {
               const Icon = item.icon;
 
               return (
-                <div
-                  className="home-approach-item"
-                  key={item.title}
-                >
-                  <Icon size={31} strokeWidth={1.35} />
+                <StaggerItem key={item.title}>
+                  <div className="home-approach-item">
+                    <Icon size={31} strokeWidth={1.35} />
 
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </StaggerItem>
               );
             })}
-          </div>
-
+          </Stagger>
         </div>
       </section>
 
-      {/* ================= CONTACT CTA ================= */}
+      {/* =====================================
+          CONTACT CTA
+      ===================================== */}
+
       <section className="home-contact-section">
         <div className="home-contact-banner">
           <div className="home-contact-overlay" />
 
           <div className="home-contact-content">
-            <h2>
-              Let's Build
-              <br />
-              Something Meaningful
-            </h2>
+            <Reveal direction="up" duration={0.9}>
+              <h2>
+                Let's Build
+                <br />
+                Something Meaningful
+              </h2>
+            </Reveal>
 
-            <p>
-              Have a project in mind? We'd love to hear
-              from you and explore how we can bring
-              it to life together.
-            </p>
+            <Reveal delay={0.15}>
+              <p>
+                Have a project in mind? We'd love to hear from you and explore
+                how we can bring it to life together.
+              </p>
+            </Reveal>
 
-            <Link to="/contact" className="home-yellow-btn">
-              Start a Project
-              <ArrowRight size={18} />
-            </Link>
+            <Reveal delay={0.25}>
+              <Link to="/contact" className="home-yellow-btn">
+                Start a Project
+                <ArrowRight size={18} />
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
-
     </main>
   );
 }

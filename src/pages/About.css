@@ -1,3 +1,4 @@
+
 /* =========================================
    TROPICAL MANIFESTO — ABOUT PAGE
 ========================================= */
@@ -34,7 +35,6 @@
   display: flex;
   align-items: center;
   gap: 15px;
-
   margin: 0 0 22px;
 
   font-size: 11px;
@@ -115,6 +115,7 @@
 
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   object-position: center;
 }
@@ -147,7 +148,6 @@
 
 .about-hero h1 {
   margin: 0 0 22px;
-
   font-size: clamp(58px, 6.2vw, 94px);
   line-height: 0.94;
 }
@@ -220,6 +220,7 @@
 }
 
 .about-intro-image img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -369,10 +370,10 @@
 }
 
 .about-team-image img {
+  display: block;
   width: 100%;
   height: 100%;
 
-  display: block;
   object-fit: cover;
   object-position: center top;
 
@@ -435,6 +436,7 @@
   display: grid;
   grid-template-columns: 42% 58%;
   min-height: 490px;
+
   background: #eee7dc;
   scroll-margin-top: 100px;
 }
@@ -479,6 +481,7 @@
 .about-purpose-icon {
   width: 65px;
   height: 65px;
+
   display: grid;
   place-items: center;
 
@@ -504,44 +507,127 @@
 }
 
 /* =========================================
-   CONTACT CTA
+   ABOUT ARCHITECTURAL CTA
+   MATCHING HOME PAGE
 ========================================= */
 
-.about-cta {
-  background: #18231b;
-  color: #ffffff;
-  padding: 65px 0;
+.about-cta-section {
+  padding: 70px 0;
+  background: #f7f3ed;
 }
 
-.about-cta-inner {
+/* BACKGROUND BANNER */
+
+.about-cta-banner {
+  position: relative;
+  isolation: isolate;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 35px;
+
+  min-height: 400px;
+  overflow: hidden;
+  border-radius: 22px;
+
+  background-image: url("/images/home-cta.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.about-cta .about-eyebrow {
-  color: #ffbf00;
+/* DARK GRADIENT */
+
+.about-cta-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(10, 18, 12, 0.86) 0%,
+    rgba(10, 18, 12, 0.62) 28%,
+    rgba(10, 18, 12, 0.24) 55%,
+    rgba(10, 18, 12, 0.02) 100%
+  );
 }
 
-.about-cta h2 {
-  margin: 0;
+/* CONTENT */
 
-  font-size: clamp(45px, 4vw, 65px);
-  line-height: 1.05;
+.about-cta-content {
+  position: relative;
+  z-index: 1;
+
+  max-width: 530px;
+  padding: 45px 60px;
+  color: #ffffff;
 }
 
-.about-cta h2 em {
-  color: #e8d0a9;
-  font-weight: 400;
+/* TITLE */
+
+.about-cta-content h2 {
+  margin: 0 0 20px;
+
+  color: #ffffff;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(49px, 4.6vw, 72px);
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  line-height: 0.94;
 }
 
-.about-cta .about-primary-btn {
-  flex-shrink: 0;
+/* DESCRIPTION */
+
+.about-cta-content p {
+  max-width: 430px;
+  margin: 0 0 24px;
+
+  color: #ffffff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* BUTTON */
+
+.about-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  min-height: 49px;
+  padding: 0 27px;
+
+  border-radius: 50px;
+  background: #ffbf00;
+  color: #171714;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.about-cta-button:hover {
+  background: #e9ad00;
+  transform: translateY(-3px);
+}
+
+.about-cta-button svg {
+  transition: transform 0.3s ease;
+}
+
+.about-cta-button:hover svg {
+  transform: translateX(4px);
 }
 
 /* =========================================
-   TABLET
+   TABLET — 1100px
 ========================================= */
 
 @media (max-width: 1100px) {
@@ -561,6 +647,10 @@
     padding: 55px 35px;
   }
 }
+
+/* =========================================
+   TABLET — 850px
+========================================= */
 
 @media (max-width: 850px) {
   .about-intro-grid {
@@ -598,20 +688,31 @@
     height: 360px;
   }
 
-  .about-cta-inner {
-    flex-direction: column;
-    align-items: flex-start;
+  /* CTA */
+
+  .about-cta-banner {
+    min-height: 370px;
+  }
+
+  .about-cta-content {
+    padding: 40px;
+  }
+
+  .about-cta-content h2 {
+    font-size: 58px;
   }
 }
 
 /* =========================================
-   MOBILE
+   MOBILE — 650px
 ========================================= */
 
 @media (max-width: 650px) {
   .about-container {
     width: calc(100% - 40px);
   }
+
+  /* HERO */
 
   .about-hero {
     min-height: 540px;
@@ -629,6 +730,8 @@
     font-size: 13px;
   }
 
+  /* INTRODUCTION */
+
   .about-intro {
     padding: 60px 0 35px;
   }
@@ -640,6 +743,8 @@
   .about-intro-image {
     height: 300px;
   }
+
+  /* VALUES */
 
   .about-values {
     padding-bottom: 45px;
@@ -656,6 +761,8 @@
   .about-value p {
     font-size: 11px;
   }
+
+  /* TEAM */
 
   .about-team-section {
     padding: 55px 0 65px;
@@ -688,6 +795,8 @@
     height: 27px;
   }
 
+  /* MISSION AND VISION */
+
   .about-purpose-image {
     min-height: 270px;
     height: 270px;
@@ -712,12 +821,65 @@
     border-top: 1px solid #cfc2b3;
   }
 
-  .about-cta {
-    padding: 55px 0;
+  /* ARCHITECTURAL CTA */
+
+  .about-cta-section {
+    padding: 35px 0 55px;
   }
 
-  .about-cta h2 {
-    font-size: 45px;
+  .about-cta-banner {
+    min-height: 390px;
+    border-radius: 16px;
+    background-position: 60% center;
+  }
+
+  .about-cta-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(10, 18, 12, 0.87),
+      rgba(10, 18, 12, 0.38)
+    );
+  }
+
+  .about-cta-content {
+    padding: 35px 25px;
+  }
+
+  .about-cta-content h2 {
+    font-size: clamp(48px, 11vw, 62px);
+  }
+
+  .about-cta-content p {
+    font-size: 13px;
+  }
+
+  .about-cta-button {
+    min-height: 46px;
+    padding: 0 22px;
+    gap: 20px;
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .about-hero h1 {
+    font-size: 48px;
+  }
+
+  .about-team-grid {
+    gap: 12px 8px;
+  }
+
+  .about-team-info {
+    padding: 12px 9px;
+  }
+
+  .about-cta-content h2 {
+    font-size: 44px;
   }
 }
 
@@ -733,7 +895,9 @@
 @media (prefers-reduced-motion: reduce) {
   .about-page a,
   .about-team-card,
-  .about-team-image img {
+  .about-team-image img,
+  .about-cta-button,
+  .about-cta-button svg {
     transition: none;
   }
 }

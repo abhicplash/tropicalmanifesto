@@ -917,3 +917,84 @@
     transform: none;
   }
 }
+
+/* =========================================
+   PROJECTS PAGE — HERO SPACING FIX
+   DESKTOP + TABLET + MOBILE
+========================================= */
+
+/* DESKTOP */
+
+.projects-hero {
+  padding-top: 155px;
+  padding-bottom: 65px;
+}
+
+.projects-hero-top {
+  margin-bottom: 45px;
+}
+
+.projects-hero-content {
+  margin-bottom: 55px;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  .projects-hero {
+    padding-top: 135px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+  .projects-hero {
+    padding-top: 125px;
+    padding-bottom: 45px;
+  }
+
+  .projects-hero-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 35px;
+  }
+
+  .projects-hero-content {
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 480px) {
+  .projects-hero {
+    padding-top: 120px;
+    padding-bottom: 30px;
+  }
+
+  .projects-hero-top {
+    margin-bottom: 30px;
+  }
+
+  .projects-hero-content {
+    margin-bottom: 35px;
+  }
+
+  .projects-hero-content h1 {
+    font-size: clamp(44px, 12vw, 56px);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .projects-hero-description {
+    max-width: 100%;
+  }
+
+  .projects-hero-image {
+    margin-top: 25px;
+  }
+}

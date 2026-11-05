@@ -50,7 +50,7 @@ function About() {
       <section className="about-hero">
         <img
           className="about-hero-image"
-          src="/images/about-hero.jpg"
+          src="/images/project-01.jpg"
           alt="Tropical architecture integrated with nature"
           fetchPriority="high"
         />
@@ -239,8 +239,9 @@ function About() {
               <h3>Our Mission</h3>
 
               <p>
-                To create meaningful, climate-responsive and enduring spaces
-                that improve the way people live, work and connect.
+                To craft sustainable, aesthetically captivating spaces that
+                seamlessly blend modern design with tropical influences,
+                fostering harmony between architecture and nature.
               </p>
             </article>
 
@@ -252,8 +253,9 @@ function About() {
               <h3>Our Vision</h3>
 
               <p>
-                To be a leading design studio in the tropics, known for
-                contextual, sustainable and people-centric architecture.
+                To be a leader in holistic, eco-conscious architecture, shaping
+                timeless spaces that reflect the natural beauty of tropical
+                landscapes.
               </p>
             </article>
           </div>
@@ -264,49 +266,37 @@ function About() {
           CONTACT CTA
       ===================================== */}
 
-     
-{/* =====================================
+      {/* =====================================
     ABOUT — ARCHITECTURAL CTA
 ===================================== */}
 
-<section className="about-cta-section">
-  <div className="about-container">
+      <section className="about-cta-section">
+        <div className="about-container">
+          <div className="about-cta-banner">
+            <div className="about-cta-overlay" />
 
-    <div className="about-cta-banner">
+            <div className="about-cta-content">
+              <h2>
+                Let's Build
+                <br />
+                Something
+                <br />
+                Meaningful
+              </h2>
 
-      <div className="about-cta-overlay" />
+              <p>
+                Have a project in mind? We'd love to hear from you and explore
+                how we can bring it to life together.
+              </p>
 
-      <div className="about-cta-content">
-
-        <h2>
-          Let's Build
-          <br />
-          Something
-          <br />
-          Meaningful
-        </h2>
-
-        <p>
-          Have a project in mind? We'd love to hear
-          from you and explore how we can bring it
-          to life together.
-        </p>
-
-        <Link
-          to="/contact"
-          className="about-cta-button"
-        >
-          Start a Project
-          <ArrowRight size={19} strokeWidth={1.8} />
-        </Link>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
+              <Link to="/contact" className="about-cta-button">
+                Start a Project
+                <ArrowRight size={19} strokeWidth={1.8} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
