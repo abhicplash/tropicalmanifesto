@@ -1,0 +1,351 @@
+/* ================================
+   TROPICAL MANIFESTO NAVBAR
+================================ */
+
+.tm-navbar {
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+  background: #f7f3ed;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* NAVBAR CONTAINER */
+
+.tm-nav-container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 86px;
+  margin: 0 auto;
+  padding: 0 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* ================================
+   LOGO
+================================ */
+
+.tm-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.tm-logo {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  display: block;
+}
+
+.tm-brand-name {
+  display: flex;
+  flex-direction: column;
+
+  color: #171714;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.9px;
+  line-height: 0.96;
+}
+
+/* ================================
+   DESKTOP LINKS
+================================ */
+
+.tm-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 38px;
+  height: 86px;
+}
+
+.tm-nav-link {
+  position: relative;
+  height: 100%;
+
+  display: inline-flex;
+  align-items: center;
+
+  color: #292723;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: color 0.3s ease;
+}
+
+.tm-nav-link:hover {
+  color: #a77900;
+}
+
+/* ACTIVE LINK */
+
+.tm-nav-link.active {
+  color: #111;
+  font-weight: 700;
+}
+
+.tm-nav-link.active::after {
+  content: "";
+  position: absolute;
+
+  bottom: 20px;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background: #ffbf00;
+}
+
+/* ================================
+   RIGHT ACTIONS
+================================ */
+
+.tm-nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+/* START A PROJECT BUTTON */
+
+.tm-start-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+
+  min-height: 44px;
+  padding: 0 24px;
+
+  background: #ffbf00;
+  color: #171714;
+
+  border-radius: 50px;
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tm-start-btn:hover {
+  background: #e9ad00;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.09);
+}
+
+.tm-start-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.tm-start-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ================================
+   MOBILE MENU BUTTON
+================================ */
+
+.tm-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  color: #171714;
+
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* MOBILE MENU */
+
+.tm-mobile-menu {
+  display: none;
+}
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1100px) {
+  .tm-nav-container {
+    padding: 0 4%;
+    gap: 18px;
+  }
+
+  .tm-nav-links {
+    gap: 21px;
+  }
+
+  .tm-nav-link {
+    font-size: 12px;
+  }
+
+  .tm-brand-name {
+    font-size: 17px;
+  }
+
+  .tm-start-btn {
+    gap: 12px;
+    padding: 0 18px;
+  }
+}
+
+/* ================================
+   MOBILE / SMALL TABLET
+================================ */
+
+@media (max-width: 850px) {
+  .tm-nav-container {
+    min-height: 74px;
+    padding: 0 5%;
+  }
+
+  .tm-nav-links {
+    display: none;
+  }
+
+  .tm-start-btn {
+    display: none;
+  }
+
+  .tm-menu-toggle {
+    display: flex;
+  }
+
+  .tm-logo {
+    width: 39px;
+    height: 39px;
+  }
+
+  .tm-brand-name {
+    font-size: 17px;
+  }
+
+  /* OPEN MOBILE MENU */
+
+  .tm-mobile-menu.open {
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px 5% 30px;
+
+    background: #f7f3ed;
+    border-top: 1px solid #e5dbcd;
+
+    animation: tmMenuReveal 0.25s ease;
+  }
+
+  .tm-mobile-link {
+    display: block;
+    padding: 16px 0;
+
+    color: #292723;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    border-bottom: 1px solid #e5dbcd;
+
+    transition: color 0.3s ease;
+  }
+
+  .tm-mobile-link:hover {
+    color: #a77900;
+  }
+
+  .tm-mobile-link.active {
+    color: #9c7100;
+    font-weight: 700;
+  }
+
+  /* MOBILE CTA */
+
+  .tm-mobile-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 25px;
+    padding: 16px 22px;
+
+    background: #ffbf00;
+    color: #171714;
+
+    border-radius: 40px;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+  }
+}
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media (max-width: 480px) {
+  .tm-nav-container {
+    padding: 0 20px;
+  }
+
+  .tm-brand {
+    gap: 8px;
+  }
+
+  .tm-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .tm-brand-name {
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes tmMenuReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-mobile-menu.open {
+    animation: none;
+  }
+
+  .tm-start-btn,
+  .tm-start-btn svg {
+    transition: none;
+  }
+}
