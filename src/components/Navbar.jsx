@@ -19,15 +19,19 @@ const navLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
+const transparentPages = ["/", "/contact"];
+
 function Navbar() {
   const location = useLocation();
 
-  const isHome = location.pathname === "/";
+  const hasTransparentNavbar = transparentPages.includes(
+    location.pathname
+  );
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Track scrolling
+  // Detect scroll position
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -44,29 +48,37 @@ function Navbar() {
     };
   }, []);
 
-  // Close mobile menu when route changes
+  // Close menu when navigating between pages
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
 
-  const isOverlay = isHome && !scrolled && !menuOpen;
+  const isOverlay =
+    hasTransparentNavbar && !scrolled && !menuOpen;
 
   return (
     <>
-      {/* Keeps page content from jumping
-          when the fixed navbar appears */}
-      {!isHome && <div className="tm-nav-spacer" />}
+      {/* Spacer only for pages with solid navbar */}
+      {!hasTransparentNavbar && (
+        <div className="tm-nav-spacer" />
+      )}
 
       <header
         className={[
           "tm-navbar",
-          isHome ? "tm-navbar-home" : "tm-navbar-inner",
+          hasTransparentNavbar
+            ? "tm-navbar-home"
+            : "tm-navbar-inner",
           isOverlay ? "tm-navbar-transparent" : "",
           scrolled ? "tm-navbar-scrolled" : "",
           menuOpen ? "tm-navbar-menu-open" : "",
-        ].filter(Boolean).join(" ")}
+        ]
+          .filter(Boolean)
+          .join(" ")}
       >
         <div className="tm-nav-container">
 
@@ -125,6 +137,7 @@ function Navbar() {
               />
             </Link>
 
+            {/* MOBILE MENU BUTTON */}
             <button
               type="button"
               className="tm-menu-toggle"
@@ -133,7 +146,9 @@ function Navbar() {
               }
               aria-expanded={menuOpen}
               aria-controls="tm-mobile-navigation"
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={() =>
+                setMenuOpen((prev) => !prev)
+              }
             >
               {menuOpen ? (
                 <X size={25} strokeWidth={1.8} />
