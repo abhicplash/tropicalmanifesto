@@ -17,6 +17,7 @@ import {
 
 import { projects } from "../data/projects";
 import "./ProjectDetails.css";
+import Reveal from "../components/animations/Reveal";
 
 /* =========================================
    TROPICAL MANIFESTO
@@ -268,21 +269,23 @@ function ProjectDetails() {
       {narrative.length > 0 && (
         <section className="pd-narrative-section">
           <div className="pd-container">
-            <div className="pd-narrative-header">
-              <div>
-                <p className="pd-section-eyebrow">Behind the Architecture</p>
+            <Reveal>
+              <div className="pd-narrative-header">
+                <div>
+                  <p className="pd-section-eyebrow">Behind the Architecture</p>
 
-                <h2>
-                  {project.narrativeTitle || "The Architectural Narrative"}
-                </h2>
+                  <h2>
+                    {project.narrativeTitle || "The Architectural Narrative"}
+                  </h2>
 
-                <span className="pd-gold-line" />
+                  <span className="pd-gold-line" />
+                </div>
+
+                <span className="pd-narrative-index">
+                  {project.title} / Tropical Manifesto
+                </span>
               </div>
-
-              <span className="pd-narrative-index">
-                {project.title} / Tropical Manifesto
-              </span>
-            </div>
+            </Reveal>
 
             <div className="pd-narrative-content">
               {narrative.map((paragraph, index) => (

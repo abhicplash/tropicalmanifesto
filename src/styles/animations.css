@@ -1,0 +1,113 @@
+/* =========================================
+   TROPICAL MANIFESTO
+   PREMIUM GLOBAL INTERACTIONS
+========================================= */
+
+/* SMOOTH IN-PAGE SCROLLING */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+/* CINEMATIC IMAGE REVEAL */
+
+.tm-image-reveal {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.tm-image-reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* PREMIUM BUTTON INTERACTIONS */
+
+.tm-start-btn,
+.about-primary-btn,
+.career-primary-btn,
+.pd-yellow-btn {
+  transition:
+    background-color 0.3s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+@media (hover: hover) {
+  .tm-start-btn:hover,
+  .about-primary-btn:hover,
+  .career-primary-btn:hover,
+  .pd-yellow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 24px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* PROJECT IMAGE ZOOM */
+
+.projects-card-image {
+  overflow: hidden;
+}
+
+.projects-card-image img {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .projects-card:hover .projects-card-image img {
+    transform: scale(1.035);
+  }
+}
+
+/* TEAM PORTRAITS */
+
+.about-team-image {
+  overflow: hidden;
+}
+
+.about-team-image img {
+  transition:
+    filter 0.5s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .about-team-card:hover .about-team-image img {
+    transform: scale(1.04);
+    filter: grayscale(0);
+  }
+}
+
+/* NAVBAR REFINEMENT */
+
+.tm-navbar {
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+/* REDUCED MOTION ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .tm-image-reveal img,
+  .projects-card-image img,
+  .about-team-image img,
+  .tm-start-btn,
+  .about-primary-btn,
+  .career-primary-btn,
+  .pd-yellow-btn {
+    transition: none !important;
+  }
+}
