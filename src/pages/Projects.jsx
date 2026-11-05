@@ -1,137 +1,9 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, MapPin } from "lucide-react";
 
+import { projects } from "../data/projects";
 import "./Projects.css";
-
-/* =====================================
-   PROJECT DATA
-   Backend-ready structure
-===================================== */
-
-export const projectsData = [
-  {
-    id: "summer-house",
-    title: "Summer House",
-    location: "Wayanad",
-    state: "Kerala",
-    category: "Architecture",
-    image: "/images/project-01.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 1,
-  },
-  {
-    id: "erc",
-    title: "ERC",
-    location: "Colvale",
-    state: "Goa",
-    category: "Architecture",
-    image: "/images/project-02.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 2,
-  },
-  {
-    id: "koru",
-    title: "Koru",
-    location: "Virajpet",
-    state: "Karnataka",
-    category: "Architecture",
-    image: "/images/project-03.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-
-  {
-    id: "koru",
-    title: "Koru",
-    location: "Virajpet",
-    state: "Karnataka",
-    category: "Architecture",
-    image: "/images/project-04.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-  {
-    id: "koru",
-    title: "Koru",
-    location: "Virajpet",
-    state: "Karnataka",
-    category: "Architecture",
-    image: "/images/project-05.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-  {
-    id: "koru",
-    title: "Koru",
-    location: "Virajpet",
-    state: "Karnataka",
-    category: "Architecture",
-    image: "/images/project-06.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-  {
-    id: "koru",
-    title: "Koru",
-    location: "Virajpet",
-    state: "Karnataka",
-    category: "Architecture",
-    image: "/images/project-07.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-  {
-    id: "Tree-Hugger-Villa",
-    title: "Tree Hugger Villa",
-    location: "Parra",
-    state: "Goa",
-    category: "Architecture",
-    image: "/images/project-08.jpg",
-    description: "",
-    year: "",
-    area: "",
-    gallery: [],
-    featured: true,
-    status: "published",
-    order: 3,
-  },
-];
 
 /* =====================================
    PROJECT CARD
@@ -149,7 +21,7 @@ function ProjectCard({ project, index, total }) {
     >
       <div className="projects-card-image">
         <img
-          src={project.image}
+          src={project.coverImage}
           alt={`${project.title} — ${project.location}`}
           loading="lazy"
         />
@@ -193,25 +65,30 @@ function ProjectCard({ project, index, total }) {
 function Projects() {
   const [activeFilter, setActiveFilter] = useState("All Projects");
 
-  // Later, this list can come from the backend.
-  const publishedProjects = useMemo(() => {
-    return projectsData
-      .filter((project) => project.status === "published")
-      .sort((a, b) => a.order - b.order);
-  }, []);
+  /* =====================================
+     PUBLISHED PROJECTS
+  ===================================== */
 
-  // Generate location filters automatically.
-  const filters = useMemo(() => {
-    const states = [
-      ...new Set(
-        publishedProjects.map((project) => project.state).filter(Boolean),
-      ),
-    ];
+  const publishedProjects = projects
+    .filter((project) => project.published === true)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
-    return ["All Projects", ...states];
-  }, [publishedProjects]);
+  /* =====================================
+     DYNAMIC LOCATION FILTERS
+  ===================================== */
 
-  // Filter project collection.
+  const states = [
+    ...new Set(
+      publishedProjects.map((project) => project.state).filter(Boolean),
+    ),
+  ];
+
+  const filters = ["All Projects", ...states];
+
+  /* =====================================
+     FILTER PROJECTS
+  ===================================== */
+
   const filteredProjects = publishedProjects.filter(
     (project) =>
       activeFilter === "All Projects" || project.state === activeFilter,
@@ -220,6 +97,10 @@ function Projects() {
   const projectCount = publishedProjects.length;
 
   const formattedCount = String(projectCount).padStart(2, "0");
+
+  /* =====================================
+     FEATURED HERO IMAGE
+  ===================================== */
 
   const featuredProject =
     publishedProjects.find((project) => project.featured) ||
@@ -263,7 +144,7 @@ function Projects() {
 
           <div className="projects-hero-image">
             <img
-              src={featuredProject?.image || "/images/home-hero.jpg"}
+              src={featuredProject?.coverImage || "/images/home-hero.jpg"}
               alt="Tropical Manifesto selected architectural work"
               fetchPriority="high"
             />
