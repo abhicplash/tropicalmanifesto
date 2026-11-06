@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import {
   ArrowRight,
   ArrowUpRight,
@@ -11,10 +13,17 @@ import {
   Sun,
   Play,
   ChevronDown,
-  Mail,
 } from "lucide-react";
 
 import { careers, careerEmail } from "../data/careers";
+
+import Reveal from "../components/animations/Reveal";
+import {
+  Stagger,
+  StaggerItem,
+} from "../components/animations/Stagger";
+import ImageReveal from "../components/animations/ImageReveal";
+
 import "./Career.css";
 
 /* =========================================
@@ -100,11 +109,9 @@ function CareerCard({ job }) {
     <article className="career-job-card">
 
       <div className="career-job-primary">
-
         <h3>{job.title}</h3>
 
         <div className="career-job-meta">
-
           <span>
             <BriefcaseBusiness size={15} />
             {job.type}
@@ -114,9 +121,7 @@ function CareerCard({ job }) {
             <MapPin size={15} />
             {job.location}
           </span>
-
         </div>
-
       </div>
 
       <div className="career-job-description">
@@ -144,6 +149,10 @@ function Career() {
   const [activeDepartment, setActiveDepartment] =
     useState("All Departments");
 
+  /* =====================================
+     PUBLISHED POSITIONS
+  ===================================== */
+
   const publishedCareers = careers.filter(
     (job) => job.published === true
   );
@@ -151,7 +160,9 @@ function Career() {
   const departments = [
     "All Departments",
     ...new Set(
-      publishedCareers.map((job) => job.department)
+      publishedCareers
+        .map((job) => job.department)
+        .filter(Boolean)
     ),
   ];
 
@@ -171,47 +182,52 @@ function Career() {
       <section className="career-hero">
 
         <div className="career-hero-photo" />
-
         <div className="career-hero-gradient" />
 
         <div className="career-container career-hero-inner">
 
           <div className="career-hero-content">
 
-            <p className="career-eyebrow">
-              Careers at Tropical Manifesto
-              <span />
-            </p>
+            <Reveal delay={0.05}>
+              <p className="career-eyebrow">
+                Careers at Tropical Manifesto
+                <span />
+              </p>
+            </Reveal>
 
-            <h1>
-              Build Spaces.
-              <br />
-              Build Your Career.
-            </h1>
+            <Reveal delay={0.15} duration={0.9}>
+              <h1>
+                Build Spaces.
+                <br />
+                Build Your Career.
+              </h1>
+            </Reveal>
 
-            <p className="career-hero-description">
-              Be part of a multidisciplinary studio
-              that designs meaningful, sustainable
-              and people-centric spaces across
-              residential, commercial and
-              hospitality sectors.
-            </p>
+            <Reveal delay={0.3}>
+              <p className="career-hero-description">
+                Be part of a multidisciplinary studio
+                that designs meaningful, sustainable
+                and people-centric spaces across
+                residential, commercial and
+                hospitality sectors.
+              </p>
+            </Reveal>
 
-            <a
-              href="#open-positions"
-              className="career-primary-btn"
-            >
-              View Open Positions
-              <ArrowRight
-                size={18}
-                strokeWidth={1.7}
-              />
-            </a>
+            <Reveal delay={0.45}>
+              <a
+                href="#open-positions"
+                className="career-primary-btn"
+              >
+                View Open Positions
+                <ArrowRight
+                  size={18}
+                  strokeWidth={1.7}
+                />
+              </a>
+            </Reveal>
 
           </div>
-
         </div>
-
       </section>
 
       {/* =====================================
@@ -219,41 +235,37 @@ function Career() {
       ===================================== */}
 
       <section className="career-benefits-section">
-
         <div className="career-container">
 
-          <div className="career-benefits-grid">
+          <Stagger className="career-benefits-grid">
 
             {benefits.map((benefit) => {
               const Icon = benefit.icon;
 
               return (
-                <article
-                  className="career-benefit"
-                  key={benefit.title}
-                >
+                <StaggerItem key={benefit.title}>
+                  <article className="career-benefit">
 
-                  <div className="career-benefit-icon">
-                    <Icon
-                      size={36}
-                      strokeWidth={1.35}
-                    />
-                  </div>
+                    <div className="career-benefit-icon">
+                      <Icon
+                        size={36}
+                        strokeWidth={1.35}
+                      />
+                    </div>
 
-                  <div>
-                    <h3>{benefit.title}</h3>
+                    <div>
+                      <h3>{benefit.title}</h3>
+                      <p>{benefit.description}</p>
+                    </div>
 
-                    <p>{benefit.description}</p>
-                  </div>
-
-                </article>
+                  </article>
+                </StaggerItem>
               );
             })}
 
-          </div>
+          </Stagger>
 
         </div>
-
       </section>
 
       {/* =====================================
@@ -261,60 +273,72 @@ function Career() {
       ===================================== */}
 
       <section className="career-culture">
-
         <div className="career-container">
 
           <div className="career-culture-grid">
 
+            {/* CULTURE IMAGE */}
+
             <div className="career-culture-image">
 
-              <img
+              <ImageReveal
                 src="/images/career-culture.jpg"
                 alt="Contemporary tropical architecture studio workspace"
-                loading="lazy"
               />
 
             </div>
 
+            {/* CULTURE CONTENT */}
+
             <div className="career-culture-content">
 
-              <p className="career-eyebrow">
-                Our Culture
-                <span />
-              </p>
+              <Reveal delay={0.05}>
+                <p className="career-eyebrow">
+                  Our Culture
+                  <span />
+                </p>
+              </Reveal>
 
-              <h2>
-                A Studio That
-                <br />
-                Grows Together
-              </h2>
+              <Reveal delay={0.15} duration={0.85}>
+                <h2>
+                  A Studio That
+                  <br />
+                  Grows Together
+                </h2>
+              </Reveal>
 
-              <p>
-                We believe great design comes from
-                curious minds, open collaboration
-                and a shared commitment to doing
-                meaningful work.
-              </p>
+              <Reveal delay={0.25}>
+                <p>
+                  We believe great design comes from
+                  curious minds, open collaboration
+                  and a shared commitment to doing
+                  meaningful work.
+                </p>
+              </Reveal>
 
-              <a
-                className="career-culture-link"
-                href="/about#our-team"
-              >
-                <span className="career-play-icon">
-                  <Play size={17} fill="currentColor" />
-                </span>
+              <Reveal delay={0.35}>
+                <Link
+                  className="career-culture-link"
+                  to="/about#our-team"
+                >
+                  <span className="career-play-icon">
+                    <Play
+                      size={17}
+                      fill="currentColor"
+                    />
+                  </span>
 
-                Meet the Team
+                  Meet the Team
 
-                <ArrowUpRight size={17} />
-              </a>
+                  <ArrowUpRight size={17} />
+                </Link>
+              </Reveal>
 
             </div>
 
           </div>
 
         </div>
-
       </section>
 
       {/* =====================================
@@ -328,100 +352,108 @@ function Career() {
 
         <div className="career-container">
 
+          {/* HEADING & FILTER */}
+
           <div className="career-positions-header">
 
-            <div>
+            <Reveal delay={0.05}>
+              <div>
+                <p className="career-eyebrow">
+                  Open Positions
+                  <span />
+                </p>
 
-              <p className="career-eyebrow">
-                Open Positions
-                <span />
-              </p>
-
-              <h2>Join Our Team</h2>
-
-            </div>
+                <h2>Join Our Team</h2>
+              </div>
+            </Reveal>
 
             {publishedCareers.length > 0 && (
-              <div className="career-department-select">
+              <Reveal delay={0.15}>
+                <div className="career-department-select">
 
-                <select
-                  aria-label="Filter by department"
-                  value={activeDepartment}
-                  onChange={(event) =>
-                    setActiveDepartment(event.target.value)
-                  }
-                >
+                  <select
+                    aria-label="Filter by department"
+                    value={activeDepartment}
+                    onChange={(event) =>
+                      setActiveDepartment(
+                        event.target.value
+                      )
+                    }
+                  >
+                    {departments.map((department) => (
+                      <option
+                        key={department}
+                        value={department}
+                      >
+                        {department}
+                      </option>
+                    ))}
+                  </select>
 
-                  {departments.map((department) => (
-                    <option
-                      key={department}
-                      value={department}
-                    >
-                      {department}
-                    </option>
-                  ))}
+                  <ChevronDown size={17} />
 
-                </select>
-
-                <ChevronDown size={17} />
-
-              </div>
+                </div>
+              </Reveal>
             )}
 
           </div>
 
-          {/* JOB LISTINGS */}
+          {/* ANIMATED JOB LIST */}
 
           {filteredCareers.length > 0 ? (
 
-            <div className="career-job-list">
+            <Stagger
+              key={activeDepartment}
+              className="career-job-list"
+              delay={0.05}
+            >
 
               {filteredCareers.map((job) => (
-                <CareerCard
-                  key={job.id}
-                  job={job}
-                />
+                <StaggerItem key={job.id}>
+                  <CareerCard job={job} />
+                </StaggerItem>
               ))}
 
-            </div>
+            </Stagger>
 
           ) : (
 
-            <div className="career-empty">
+            <Reveal>
+              <div className="career-empty">
 
-              <span className="career-empty-icon">
-                <BriefcaseBusiness
-                  size={30}
-                  strokeWidth={1.3}
-                />
-              </span>
+                <span className="career-empty-icon">
+                  <BriefcaseBusiness
+                    size={30}
+                    strokeWidth={1.3}
+                  />
+                </span>
 
-              <h3>
-                {publishedCareers.length === 0
-                  ? "No Open Positions at the Moment"
-                  : "No Positions in This Department"}
-              </h3>
+                <h3>
+                  {publishedCareers.length === 0
+                    ? "No Open Positions at the Moment"
+                    : "No Positions in This Department"}
+                </h3>
 
-              <p>
-                {publishedCareers.length === 0
-                  ? "We don't have any confirmed vacancies listed right now, but we're always interested in hearing from creative and passionate people."
-                  : "Explore opportunities in another department or send us your profile for future consideration."}
-              </p>
+                <p>
+                  {publishedCareers.length === 0
+                    ? "We don't have any confirmed vacancies listed right now, but we're always interested in hearing from creative and passionate people."
+                    : "Explore opportunities in another department or send us your profile for future consideration."}
+                </p>
 
-              <a
-                href={getApplicationLink()}
-                className="career-empty-link"
-              >
-                Send Your Profile
-                <ArrowRight size={17} />
-              </a>
+                <a
+                  href={getApplicationLink()}
+                  className="career-empty-link"
+                >
+                  Send Your Profile
+                  <ArrowRight size={17} />
+                </a>
 
-            </div>
+              </div>
+            </Reveal>
 
           )}
 
         </div>
-
       </section>
 
       {/* =====================================
@@ -429,44 +461,49 @@ function Career() {
       ===================================== */}
 
       <section className="career-profile-section">
-
         <div className="career-container">
 
           <div className="career-profile-banner">
-
             <div className="career-profile-overlay" />
 
             <div className="career-profile-content">
 
-              <p className="career-eyebrow">
-                Don't See a Match?
-                <span />
-              </p>
+              <Reveal delay={0.05}>
+                <p className="career-eyebrow">
+                  Don't See a Match?
+                  <span />
+                </p>
+              </Reveal>
 
-              <h2>Send Us Your Profile</h2>
+              <Reveal delay={0.15} duration={0.9}>
+                <h2>Send Us Your Profile</h2>
+              </Reveal>
 
-              <p className="career-profile-description">
-                We're always looking for talented
-                and passionate individuals.
-                Share your resume with us and we'll
-                reach out when a suitable
-                opportunity opens.
-              </p>
+              <Reveal delay={0.25}>
+                <p className="career-profile-description">
+                  We're always looking for talented
+                  and passionate individuals.
+                  Share your resume with us and we'll
+                  reach out when a suitable
+                  opportunity opens.
+                </p>
+              </Reveal>
 
-              <a
-                href={getApplicationLink()}
-                className="career-primary-btn"
-              >
-                Submit Your CV
-                <ArrowRight size={18} />
-              </a>
+              <Reveal delay={0.35}>
+                <a
+                  href={getApplicationLink()}
+                  className="career-primary-btn"
+                >
+                  Submit Your CV
+                  <ArrowRight size={18} />
+                </a>
+              </Reveal>
 
             </div>
 
           </div>
 
         </div>
-
       </section>
 
     </main>

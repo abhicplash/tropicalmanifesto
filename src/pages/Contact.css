@@ -862,3 +862,143 @@
     transition: none;
   }
 }
+
+/* =========================================
+   TROPICAL MANIFESTO
+   CONTACT — ANIMATION SUPPORT
+========================================= */
+
+/* =====================================
+   HERO
+===================================== */
+
+.contact-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* =====================================
+   CONTACT INFORMATION
+===================================== */
+
+.contact-info-grid,
+.contact-info-item {
+  min-width: 0;
+}
+
+/* =====================================
+   ARCHITECTURAL IMAGE
+===================================== */
+
+.contact-enquiry-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-enquiry-image .tm-image-reveal {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-enquiry-image .tm-image-reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-image-caption {
+  position: absolute;
+  z-index: 3;
+}
+
+/* =====================================
+   FORM
+===================================== */
+
+.contact-form-wrapper,
+.contact-form,
+.contact-form-row,
+.contact-field {
+  min-width: 0;
+}
+
+/* Form controls */
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  max-width: 100%;
+}
+
+/* Smooth focus states */
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  outline: none;
+  border-color: #c79a00;
+  box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.12);
+}
+
+/* =====================================
+   OFFICE CARDS
+===================================== */
+
+.contact-offices-grid > .contact-office-animation-item {
+  min-width: 0;
+  height: 100%;
+}
+
+.contact-office-animation-item .contact-office-card {
+  width: 100%;
+  height: 100%;
+}
+
+/* Office image/map sizing */
+
+.contact-office-map {
+  overflow: hidden;
+}
+
+.contact-office-map iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 650px) {
+  .contact-offices-grid > .contact-office-animation-item {
+    width: 100%;
+  }
+
+  .contact-form-row {
+    width: 100%;
+  }
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-submit-btn,
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea {
+    transition: none;
+  }
+}

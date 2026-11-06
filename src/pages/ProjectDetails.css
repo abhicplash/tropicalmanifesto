@@ -1345,3 +1345,96 @@
     font-size: 13px;
   }
 }
+
+/* =========================================
+   PROJECT DETAILS — ANIMATION SUPPORT
+========================================= */
+
+.pd-hero-image {
+  overflow: hidden;
+}
+
+.pd-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pd-overview-facts,
+.pd-credits-grid,
+.pd-highlights-list {
+  min-width: 0;
+}
+
+.pd-fact,
+.pd-credit-item,
+.pd-highlight {
+  min-width: 0;
+}
+
+/* GALLERY IMAGE */
+
+.pd-gallery-main {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.pd-gallery-main > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* KEEP CONTROLS VISIBLE */
+
+.pd-gallery-nav {
+  z-index: 3;
+}
+
+.pd-gallery-counter {
+  z-index: 3;
+}
+
+/* THUMBNAIL INTERACTIONS */
+
+.pd-gallery-thumbnail {
+  overflow: hidden;
+}
+
+.pd-gallery-thumbnail img {
+  transition: transform 0.45s ease;
+}
+
+@media (hover: hover) {
+  .pd-gallery-thumbnail:hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* STORY IMAGE */
+
+.pd-story-image {
+  overflow: hidden;
+}
+
+.pd-story-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CTA */
+
+.pd-contact-content {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-gallery-thumbnail img {
+    transition: none;
+  }
+}

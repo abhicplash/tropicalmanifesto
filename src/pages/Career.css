@@ -1,3 +1,4 @@
+
 /* =========================================
    TROPICAL MANIFESTO — CAREER PAGE
 ========================================= */
@@ -580,7 +581,7 @@
 
   background: linear-gradient(
     90deg,
-    rgba(15, 20, 15, 0.9) 0%,
+    rgba(15, 20, 15, 0.90) 0%,
     rgba(15, 20, 15, 0.68) 32%,
     rgba(15, 20, 15, 0.22) 62%,
     rgba(15, 20, 15, 0.04) 100%
@@ -891,6 +892,84 @@
   .career-job-card,
   .career-culture-image img,
   .career-primary-btn svg {
+    transition: none;
+  }
+}
+
+/* =========================================
+   CAREER — ANIMATION LAYOUT SUPPORT
+========================================= */
+
+/* BENEFIT CARDS */
+
+.career-benefits-grid > div {
+  min-width: 0;
+  height: 100%;
+}
+
+.career-benefits-grid > div .career-benefit {
+  height: 100%;
+}
+
+/* CULTURE IMAGE */
+
+.career-culture-image .tm-image-reveal {
+  width: 100%;
+  height: 100%;
+}
+
+.career-culture-image .tm-image-reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* JOB LIST */
+
+.career-job-list > div {
+  min-width: 0;
+  width: 100%;
+}
+
+.career-job-list > div .career-job-card {
+  width: 100%;
+}
+
+/* HEADER LAYOUT */
+
+.career-positions-header > div {
+  min-width: 0;
+}
+
+/* CTA */
+
+.career-profile-banner {
+  overflow: hidden;
+}
+
+.career-profile-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .career-benefits-grid > div {
+    width: 100%;
+  }
+
+  .career-job-list > div {
+    width: 100%;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .career-benefit,
+  .career-job-card {
     transition: none;
   }
 }

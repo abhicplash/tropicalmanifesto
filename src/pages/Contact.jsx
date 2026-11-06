@@ -1,6 +1,11 @@
 
 import { useState } from "react";
 import {
+  motion,
+  useReducedMotion,
+} from "motion/react";
+
+import {
   ArrowRight,
   Phone,
   Mail,
@@ -10,11 +15,45 @@ import {
   Building2,
 } from "lucide-react";
 
+import Reveal from "../components/animations/Reveal";
+import ImageReveal from "../components/animations/ImageReveal";
+
 import "./Contact.css";
 
-/* ===============================
+/* =========================================
+   ANIMATION CONFIGURATION
+========================================= */
+
+const ease = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease,
+    },
+  },
+};
+
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+/* =========================================
    CONTACT INFORMATION
-================================ */
+========================================= */
 
 const contactDetails = {
   phone: "+91 73561 47020",
@@ -44,9 +83,9 @@ const offices = [
   },
 ];
 
-/* ===============================
+/* =========================================
    OFFICE CARD COMPONENT
-================================ */
+========================================= */
 
 function OfficeCard({ office }) {
   const mapSearchUrl =
@@ -63,9 +102,14 @@ function OfficeCard({ office }) {
     <article className="contact-office-card">
 
       <div className="contact-office-top">
+
         <div className="contact-office-heading">
+
           <span className="contact-office-icon">
-            <Building2 size={24} strokeWidth={1.5} />
+            <Building2
+              size={24}
+              strokeWidth={1.5}
+            />
           </span>
 
           <div>
@@ -75,24 +119,35 @@ function OfficeCard({ office }) {
 
             <h3>{office.city}</h3>
           </div>
+
         </div>
 
         <span className="contact-office-number">
           0{office.id}
         </span>
+
       </div>
 
       <div className="contact-office-details">
 
         <div className="contact-office-detail">
-          <MapPin size={19} strokeWidth={1.6} />
+          <MapPin
+            size={19}
+            strokeWidth={1.6}
+          />
+
           <p>{office.address}</p>
         </div>
 
         <div className="contact-office-detail">
-          <Phone size={19} strokeWidth={1.6} />
+          <Phone
+            size={19}
+            strokeWidth={1.6}
+          />
 
-          <a href={`tel:${office.phone.replace(/\s/g, "")}`}>
+          <a
+            href={`tel:${office.phone.replace(/\s/g, "")}`}
+          >
             {office.phone}
           </a>
         </div>
@@ -100,6 +155,7 @@ function OfficeCard({ office }) {
       </div>
 
       <div className="contact-office-map">
+
         <iframe
           title={`Tropical Manifesto ${office.city} Office Map`}
           src={mapEmbedUrl}
@@ -107,6 +163,7 @@ function OfficeCard({ office }) {
           referrerPolicy="no-referrer-when-downgrade"
           allowFullScreen
         />
+
       </div>
 
       <a
@@ -116,16 +173,19 @@ function OfficeCard({ office }) {
         className="contact-office-directions"
       >
         Get Directions
-        <ExternalLink size={17} strokeWidth={1.7} />
+        <ExternalLink
+          size={17}
+          strokeWidth={1.7}
+        />
       </a>
 
     </article>
   );
 }
 
-/* ===============================
+/* =========================================
    FORM INITIAL STATE
-================================ */
+========================================= */
 
 const initialForm = {
   name: "",
@@ -136,12 +196,35 @@ const initialForm = {
   message: "",
 };
 
-/* ===============================
+/* =========================================
    CONTACT PAGE
-================================ */
+========================================= */
 
 function Contact() {
   const [form, setForm] = useState(initialForm);
+
+  const reduceMotion = useReducedMotion();
+  const shouldAnimate = !reduceMotion;
+
+  const groupProps = shouldAnimate
+    ? {
+        variants: stagger,
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: {
+          once: true,
+          amount: 0.1,
+        },
+      }
+    : {};
+
+  const itemVariants = shouldAnimate
+    ? fadeUp
+    : undefined;
+
+  /* =====================================
+     FORM CHANGE HANDLER
+  ===================================== */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -151,6 +234,10 @@ function Contact() {
       [name]: value,
     }));
   };
+
+  /* =====================================
+     EMAIL ENQUIRY
+  ===================================== */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -180,64 +267,108 @@ function Contact() {
   return (
     <main className="contact-page">
 
-      {/* ================= HERO ================= */}
+      {/* =====================================
+          HERO SECTION
+      ===================================== */}
 
       <section className="contact-hero">
 
         <div className="contact-hero-bg" />
 
         <div className="contact-hero-container">
+
           <div className="contact-hero-content">
 
-            <p className="contact-eyebrow">
-              Get in Touch
-              <span />
-            </p>
+            {/* HERO EYEBROW */}
 
-            <h1>
-              Let's Build
-              <br />
-              Something
-              <br />
-              <em>Meaningful.</em>
-            </h1>
+            <Reveal delay={0.05}>
+              <p className="contact-eyebrow">
+                Get in Touch
+                <span />
+              </p>
+            </Reveal>
 
-            <p className="contact-hero-description">
-              Have a project in mind? We'd love to
-              hear from you and explore how we can
-              bring it to life together.
-            </p>
+            {/* HERO HEADING */}
 
-            <a
-              href="#contact-form"
-              className="contact-primary-btn"
-            >
-              Start a Conversation
-              <ArrowRight size={18} />
-            </a>
+            <Reveal delay={0.15} duration={0.9}>
+              <h1>
+                Let's Build
+                <br />
+                Something
+                <br />
+                <em>Meaningful.</em>
+              </h1>
+            </Reveal>
+
+            {/* HERO DESCRIPTION */}
+
+            <Reveal delay={0.3}>
+              <p className="contact-hero-description">
+                Have a project in mind? We'd love to
+                hear from you and explore how we can
+                bring it to life together.
+              </p>
+            </Reveal>
+
+            {/* HERO CTA */}
+
+            <Reveal delay={0.45}>
+              <a
+                href="#contact-form"
+                className="contact-primary-btn"
+              >
+                Start a Conversation
+                <ArrowRight size={18} />
+              </a>
+            </Reveal>
 
           </div>
+
         </div>
 
       </section>
 
-      {/* ================= CONTACT STRIP ================= */}
+      {/* =====================================
+          CONTACT INFORMATION STRIP
+      ===================================== */}
 
       <section className="contact-info-section">
 
-        <div className="contact-info-grid">
+        <motion.div
+          className="contact-info-grid"
+          {...groupProps}
+        >
 
-          <div className="contact-info-item">
-            <MapPin size={28} strokeWidth={1.5} />
+          {/* OFFICE LOCATIONS */}
+
+          <motion.div
+            className="contact-info-item"
+            variants={itemVariants}
+          >
+
+            <MapPin
+              size={28}
+              strokeWidth={1.5}
+            />
 
             <div>
               <h3>Our Offices</h3>
               <p>Goa & Kozhikode, India</p>
             </div>
-          </div>
 
-          <div className="contact-info-item">
-            <Phone size={28} strokeWidth={1.5} />
+          </motion.div>
+
+          {/* PHONE */}
+
+          <motion.div
+            className="contact-info-item"
+            variants={itemVariants}
+          >
+
+            <Phone
+              size={28}
+              strokeWidth={1.5}
+            />
 
             <div>
               <h3>Call Us</h3>
@@ -246,10 +377,20 @@ function Contact() {
                 {contactDetails.phone}
               </a>
             </div>
-          </div>
 
-          <div className="contact-info-item">
-            <Mail size={28} strokeWidth={1.5} />
+          </motion.div>
+
+          {/* EMAIL */}
+
+          <motion.div
+            className="contact-info-item"
+            variants={itemVariants}
+          >
+
+            <Mail
+              size={28}
+              strokeWidth={1.5}
+            />
 
             <div>
               <h3>Email Us</h3>
@@ -258,13 +399,16 @@ function Contact() {
                 {contactDetails.email}
               </a>
             </div>
-          </div>
 
-        </div>
+          </motion.div>
+
+        </motion.div>
 
       </section>
 
-      {/* ================= ENQUIRY FORM ================= */}
+      {/* =====================================
+          ENQUIRY SECTION
+      ===================================== */}
 
       <section
         className="contact-enquiry-section"
@@ -273,14 +417,15 @@ function Contact() {
 
         <div className="contact-enquiry-container">
 
-          {/* LEFT ARCHITECTURAL IMAGE */}
+          {/* =====================================
+              LEFT ARCHITECTURAL IMAGE
+          ===================================== */}
 
           <div className="contact-enquiry-image">
 
-            <img
+            <ImageReveal
               src="/images/home-about.jpg"
               alt="Tropical Manifesto architectural design"
-              loading="lazy"
             />
 
             <div className="contact-image-caption">
@@ -290,35 +435,49 @@ function Contact() {
 
           </div>
 
-          {/* RIGHT FORM */}
+          {/* =====================================
+              RIGHT ENQUIRY FORM
+          ===================================== */}
 
           <div className="contact-form-wrapper">
 
-            <p className="contact-eyebrow">
-              Send an Enquiry
-              <span />
-            </p>
+            <Reveal delay={0.05}>
+              <p className="contact-eyebrow">
+                Send an Enquiry
+                <span />
+              </p>
+            </Reveal>
 
-            <h2>
-              Tell Us About
-              <br />
-              Your Project
-            </h2>
+            <Reveal delay={0.15} duration={0.85}>
+              <h2>
+                Tell Us About
+                <br />
+                Your Project
+              </h2>
+            </Reveal>
 
-            <p className="contact-form-description">
-              Every meaningful space starts with a
-              conversation. Share your ideas, and
-              let's explore the possibilities.
-            </p>
+            <Reveal delay={0.25}>
+              <p className="contact-form-description">
+                Every meaningful space starts with a
+                conversation. Share your ideas, and
+                let's explore the possibilities.
+              </p>
+            </Reveal>
 
-            <form
+            {/* ANIMATED FORM */}
+
+            <motion.form
               onSubmit={handleSubmit}
               className="contact-form"
+              {...groupProps}
             >
 
               {/* NAME + EMAIL */}
 
-              <div className="contact-form-row">
+              <motion.div
+                className="contact-form-row"
+                variants={itemVariants}
+              >
 
                 <div className="contact-field">
                   <label htmlFor="contact-name">
@@ -354,11 +513,14 @@ function Contact() {
                   />
                 </div>
 
-              </div>
+              </motion.div>
 
               {/* PHONE + PROJECT TYPE */}
 
-              <div className="contact-form-row">
+              <motion.div
+                className="contact-form-row"
+                variants={itemVariants}
+              >
 
                 <div className="contact-field">
                   <label htmlFor="contact-phone">
@@ -390,35 +552,46 @@ function Contact() {
                     <option value="">
                       Select project type
                     </option>
+
                     <option value="Residential">
                       Residential
                     </option>
+
                     <option value="Commercial">
                       Commercial
                     </option>
+
                     <option value="Hospitality">
                       Hospitality
                     </option>
+
                     <option value="Interior Design">
                       Interior Design
                     </option>
+
                     <option value="Landscape Design">
                       Landscape Design
                     </option>
+
                     <option value="Consultancy">
                       Consultancy
                     </option>
+
                     <option value="Other">
                       Other
                     </option>
                   </select>
                 </div>
 
-              </div>
+              </motion.div>
 
               {/* OFFICE SELECTION */}
 
-              <div className="contact-field">
+              <motion.div
+                className="contact-field"
+                variants={itemVariants}
+              >
+
                 <label htmlFor="contact-office">
                   Preferred Office
                 </label>
@@ -432,21 +605,29 @@ function Contact() {
                   <option value="">
                     Select preferred office
                   </option>
+
                   <option value="Goa">
                     Goa — Company Office
                   </option>
+
                   <option value="Kozhikode">
                     Kozhikode — Branch Office
                   </option>
+
                   <option value="No Preference">
                     No Preference
                   </option>
                 </select>
-              </div>
+
+              </motion.div>
 
               {/* MESSAGE */}
 
-              <div className="contact-field">
+              <motion.div
+                className="contact-field"
+                variants={itemVariants}
+              >
+
                 <label htmlFor="contact-message">
                   Your Message *
                 </label>
@@ -460,29 +641,53 @@ function Contact() {
                   onChange={handleChange}
                   required
                 />
-              </div>
 
-              <button
+              </motion.div>
+
+              {/* SUBMIT BUTTON */}
+
+              <motion.button
                 type="submit"
                 className="contact-submit-btn"
+                variants={itemVariants}
+                whileHover={
+                  shouldAnimate
+                    ? { y: -2 }
+                    : undefined
+                }
+                whileTap={
+                  shouldAnimate
+                    ? { scale: 0.99 }
+                    : undefined
+                }
               >
                 Prepare Email Enquiry
-                <Send size={17} strokeWidth={1.7} />
-              </button>
+                <Send
+                  size={17}
+                  strokeWidth={1.7}
+                />
+              </motion.button>
 
-              <p className="contact-form-note">
+              <motion.p
+                className="contact-form-note"
+                variants={itemVariants}
+              >
                 Your email application will open with
                 the enquiry details ready to review
                 and send.
-              </p>
+              </motion.p>
 
-            </form>
+            </motion.form>
 
           </div>
+
         </div>
+
       </section>
 
-      {/* ================= TWO OFFICE LOCATIONS ================= */}
+      {/* =====================================
+          OFFICE LOCATIONS
+      ===================================== */}
 
       <section
         className="contact-locations-section"
@@ -491,37 +696,55 @@ function Contact() {
 
         <div className="contact-locations-container">
 
+          {/* SECTION HEADING */}
+
           <div className="contact-locations-header">
 
-            <div>
-              <p className="contact-eyebrow">
-                Find Us
-                <span />
+            <Reveal delay={0.05}>
+              <div>
+                <p className="contact-eyebrow">
+                  Find Us
+                  <span />
+                </p>
+
+                <h2>
+                  Our
+                  <br />
+                  Locations
+                </h2>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <p>
+                Connect with Tropical Manifesto
+                at either of our studios.
+                We'd love to discuss your next project.
               </p>
-
-              <h2>
-                Our
-                <br />
-                Locations
-              </h2>
-            </div>
-
-            <p>
-              Connect with Tropical Manifesto
-              at either of our studios.
-              We'd love to discuss your next project.
-            </p>
+            </Reveal>
 
           </div>
 
-          <div className="contact-offices-grid">
+          {/* STAGGERED OFFICE CARDS */}
+
+          <motion.div
+            className="contact-offices-grid"
+            {...groupProps}
+          >
+
             {offices.map((office) => (
-              <OfficeCard
+
+              <motion.div
                 key={office.id}
-                office={office}
-              />
+                variants={itemVariants}
+                className="contact-office-animation-item"
+              >
+                <OfficeCard office={office} />
+              </motion.div>
+
             ))}
-          </div>
+
+          </motion.div>
 
         </div>
 
